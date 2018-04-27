@@ -8,7 +8,9 @@ const express = require('express'),
   //Configure Application
 
   //Set The Routes
-  //Creating A Homepage Route
+  //requireing routes.js file app.use(require('./app/routes'))In the app folder in routes.js file.
+  app.use(require('./app/routes'))
+    //Creating A Homepage Route
   app.get('/', (req, res) => {
     res.send('Yo this is the route,and the response "res", sends this message.')
   });
