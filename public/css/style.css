@@ -1,0 +1,45 @@
+body  {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.5;
+  background-image: url('https://images.unsplash.com/photo-1459666644539-a9755287d6b0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=279b60ab483a2610d1e7260dc213898c&auto=format&fit=crop&w=1428&q=80');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+/* header */
+#site-header .navbar  {
+  border-radius: 0;
+  border: none;
+  margin: 0;
+  background-color: #444444;
+}
+
+/* main section */
+#site-main  {
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+
+/* footer */
+#site-footer  {
+  text-align: center;
+  padding-bottom: 30px;
+  padding-top: 30px;
+  font-size: 12px;
+  background: #444444;
+  color: #999;
+}
+
+.jumbotron{
+  background-color: #444444;
+  width: 200px;
+}
+h1 {
+  color: white;
+}
+
+.table {
+    background: #444444;
+    color: #999;
+}

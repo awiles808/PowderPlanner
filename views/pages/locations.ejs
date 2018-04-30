@@ -1,0 +1,30 @@
+
+<%# //Create BootStrap jumbotron %>
+<div class="jumbotron text-center">
+    <h1>Pick Your Location</h1>
+</div> %>
+
+<%# //Create BootStarp Table %>
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Location</th>
+            <th>Mountain Range</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+<%# //Create For Loop, looping Over The locations/bootstrap(tr,td table). %>
+        <% for (var location of locations) { %>
+            <tr>
+                <td><%= location.name %></td>
+                <td><%= location.description %></td>
+                <td>
+                    <a href="/locations/<%= location.slug %>" class="btn btn-sm btn-primary">View</a>
+                </td>
+            </tr>
+        <% } %>
+
+    </tbody>
+</table>

@@ -2,7 +2,7 @@
                           <!-- # PowderPlanner
 npm init
 npm install --save Express
-npm install
+npm install --save mongoose
 npm install --save ejs express-ejs-layouts ---
 (layouts allow for 1 ejs layout for all allowing for d.r.y. code)
 create .gitignore file with - node_modules/ written inside.
@@ -80,7 +80,7 @@ mainController = require('./controllers/main.controller')
 
 npm install --save ejs express-ejs-layouts
 Layouts allows for one template across all of our views .D.R.Y.
-Configure what we installed in server.js
+Configure what we installed in server.js/ Configure Application
 Tell Express To look For Static Assets First
 Tell Express CSS Files Will Be In The Public Folder
   app.use(express.static(__dirname + '/public'));
@@ -97,19 +97,131 @@ In main.controller.js file we need to use /'render' the ejs layout.
   module.exports = {
       showHome: (req, res) => {
         res.render('pages/home');
-        res.send('Yo this is the route,and the response "res", sends this
+        res.send('Yo this is the route, and the response "res", sends this
           message. Still Works')
   }
 };
 
         EJS Folders
+
 Create Views Folder-Inside Views Create Pages Folder and layouts.ejs file --
 Inside Pages Create home.ejs file
 Inside of layouts.ejs, start html
 Create Layout And Import BootStrap.
 Ejs Knows How To Place The Code with the ice cream cone/clown tag<% %>
 The layout takes any information in the home.ejs file and places it in the
-<%body%> tag. 
+<%body%> tag. This allows the ejs file to be reused across all of the views.
+
+
+        Locations Controller
+
+Create a file in the controllers folder called locations.controller.js that
+will store the dummy(for now) data on the locations.
+Create A New Function And Call It showLocations
+Create Dummy Data, Return with res.render,Pass the locations data into the locations view
+
+  module.exports = {
+    showLocations: (req, res) => {
+    const  events = [
+    //dummy data
+    ];
+    //return a view with data(res.render())
+      res.render('pages/locations' {locations: locations})
+  }
+};
+        Create Locations EJS File
+
+Create BootStrap jumbotron,
+Create BootStrap Table("table table-bordered table-hover table-striped")
+Create For Loop, looping Over The locations using bootstrap tr, td table.
+
+
+        Single Location
+
+Create Controller Method, Route, and View.
+In loctions.controller.js create a method to show a single event.showSingle(req, res)
+Get A Single Location const location ={}
+Then render The Single EJS File res.render('pages/single', {location: location})
+
+
+        Single EJS Views/Pages File - single.ejs
+
+Create bootstrap navigation using jumbotron.
+    <div class="jumbotron-text-center" >
+      //With and h1 and p tag
+      <h1><%= event.name %></p>
+      <p><%= event.description %></p>
+      </div>
+
+
+        Single Location Route
+
+router.get('locations/:slug-(a parameter)', locationsController.showSingle);
+
+
+        Connecting To MongoDB with MLab
+
+npm install --save mongoose(if haven't already)
+Bring mongoode into server.js file (mongoose = require('mongoose'));
+
+
+        Environment Variables - Keep the secrets secret -
+
+nmp install --save dotenv
+Bring into project at the top of server.js
+Create A dotenv file in the root of the project.
+DB_URI='mongodb://<user>:<pass>' will be loaded in the process.env
+
+
+        Getting Information Into The DataBase -Event Model-(mongoose model)
+
+Create a location model which will point to the location collection to CRUD
+The model will say each location has the specific attributes.
+In the models folder, create a new file location.js
+Grab Mongoose(mongoose=require('mongoose'))
+
+
+          Creating Middleware
+
+Use Middleware To Create Slug From It's Name.          
+The Model Will Be Responsible For Creating The Slug
+To Define Middleware, Create MiddleWare section - use 'pre' to call middleware
+locationSchema.pre('save')
+
+          Create Access In the Locations Controller
+
+Grab Mongoose,Grab Schema and define a Model,
+A Schema Defines what will be apart of this model.
+Create Location Schema
+  const locationSchema = new Schema({
+    name: String,
+    slug: {
+      type: String,
+      unique: true
+    },
+  description: String
+});
+
+Create Middleware To Ensure Slug Is Created From The Name.
+Use ES5 to use .this - which represents the model.
+Calling The Parameter(next)
+  locationSchema.pre('save' ,function(next) {
+    this.slug = sluify(this.name);
+    next();
+});
+
+Use this in the locations.controller file to seed the DataBase
+const Location = require('../models/location');
+
+
+          Seeding The DataBase
+
+Methods - Location.find()
+          Location.findOne()
+          Location.save()
+          Location.remove()
+
+Create new function in locations.controller to seed the DataBase
 
 
 
@@ -118,7 +230,32 @@ The layout takes any information in the home.ejs file and places it in the
 
 
 
-  Configure Application
 
-  Start Server Which Is Listening On PORT
-  Creating A Function To Console.Log Where The App Is Listening -->
+
+
+
+
+
+
+
+
+
+
+-----------------------------*References/#LifeSavers*---------------------------
+Labs/Youtube PlayList
+https://www.lynda.com/
+https://scotch.io/courses/
+https://stackoverflow.com/
+https://www.youtube.com/
+
+  javaScript Sluify Function https://gist.github.com/mathewbyrne/1280286
+
+  function slugify(text)
+{
+  return text.toString().toLowerCase()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '');            // Trim - from end of text
+}
