@@ -11,9 +11,9 @@ module.exports = {
 showLocations: (req, res) => {
 
 const locations = [
-  {name: 'Colorado', description: 'Winter Park'},
-  {name: 'Alaska', description: 'Mt. Denali'},
-  {name: 'Ausrtria', description: 'Saalbach'}
+  {name: 'Colorado', slug: 'colorado', description: 'Winter Park'},
+  {name: 'Alaska', slug: 'alaska', description: 'Mt. Denali'},
+  {name: 'Ausrtria',slug: 'austria', description: 'Saalbach'}
 ];
 
 
@@ -26,6 +26,18 @@ const locations = [
   showSingle: (req ,res) => {
     //Get A Sinle Location
     const location = { name: 'Colorado', slug: 'colorado', description: 'Winter Park'};
+
+    res.render('pages/single', { location: location});
+  },
+  showSingle: (req ,res) => {
+    //Get A Sinle Location
+    const location = { name: 'Alaska', slug: 'alaska', description: 'Mt.Denali'};
+
+    res.render('pages/single', { location: location});
+  },
+  showSingle: (req ,res) => {
+    //Get A Sinle Location
+    const location = { name: 'Austria', slug: 'austria', description: 'Saalbach'};
 
     res.render('pages/single', { location: location});
   },
