@@ -19,6 +19,8 @@ const express = require('express')
 
 //Locations routes - One For ALl
   router.get('/locations', locationsController.showLocations);
+  //Show Single
+  router.get('/locations/:slug', locationsController.showSingle);
 
 
 // //Seed Events
@@ -27,6 +29,3 @@ const express = require('express')
 //Create Events
 //Update Events
 //Delete Events
-
-//Show Single
-  router.get('/locations/:slug', locationsController.showSingle);
