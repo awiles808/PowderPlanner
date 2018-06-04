@@ -1,5 +1,15 @@
 //Load Environment Variables
 require('dotenv').config();
+var admin = require('firebase-admin');
+
+
+var serviceAccount = require('./powderplanner-firebase-adminsdk-qtkyg-fa57a8ac81.json');
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://powderplanner.firebaseio.com'
+});
+
 
 //Setting Up Application
 //Grab Our Dependencies
@@ -35,3 +45,10 @@ mongoose.connect(process.env.DB_URI);
   app.listen(port, () => {
     console.log(`App Listening on http://localhost:${port}`);
   });
+
+  // ui.start('#firebaseui-auth-container', {
+  //   signInOptions: [
+  //     firebase.auth.EmailAuthProvider.PROVIDER_ID
+  //   ],
+  //   // Other config options...
+  // });
