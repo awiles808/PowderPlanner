@@ -1,14 +1,14 @@
 //Load Environment Variables
+//Got that security
 require('dotenv').config();
 var admin = require('firebase-admin');
 
-
-var serviceAccount = require('./powderplanner-firebase-adminsdk-qtkyg-fa57a8ac81.json');
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://powderplanner.firebaseio.com'
-});
+// var serviceAccount = require('./powderplanner-firebase-adminsdk-qtkyg-fa57a8ac81.json');
+//
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: 'https://powderplanner.firebaseio.com'
+// });
 
 
 //Setting Up Application
@@ -32,6 +32,7 @@ const express = require('express'),
   app.use(expressLayouts)
 
 //Connect to DataBase
+//.env file contains DB_URI hidden through process.env.
 mongoose.connect(process.env.DB_URI);
 
   //Set The Routes

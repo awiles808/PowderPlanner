@@ -35,12 +35,12 @@ const locations = [
 
     res.render('pages/single', { location: location});
   },
-  showSingle: (req ,res) => {
-    //Get A Sinle Location
-    const location = { name: 'Austria', slug: 'austria', description: 'Saalbach'};
-
-    res.render('pages/single', { location: location});
-  },
+  // showSingle: (req ,res) => {
+  //   //Get A Sinle Location
+  //   const location = { name: 'Austria', slug: 'austria', description: 'Saalbach'};
+  //
+  //   res.render('pages/single', { location: location});
+  // },
 
 // //Seed Our DataBase
 //   seedLocations: (req, res) => {
