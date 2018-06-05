@@ -15,17 +15,18 @@ const express = require('express')
 //Define Routes
 //Main Routes
 //The Route Is Attached To The Router(module.exports = router)
-  router.get('/', mainController.showHome);
+router.get('/', mainController.showHome);
 
 //Locations routes - One For ALl
-  router.get('/locations', locationsController.showLocations);
-  //Show Single
-  router.get('/locations/:slug', locationsController.showSingle);
+router.get('/locations', locationsController.showLocations);
 
 
 // //Seed Events
-// router.get('/locations/seed', locationsController.seedLocations);
+router.get('/locations/seed', locationsController.seedLocations);
 
 //Create Events
 //Update Events
 //Delete Events
+
+  //Show Single using slug
+router.get('/locations/:slug', locationsController.showLocation);

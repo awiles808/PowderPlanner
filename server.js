@@ -1,25 +1,17 @@
 //Load Environment Variables
 //Got that security
 require('dotenv').config();
-var admin = require('firebase-admin');
-
-// var serviceAccount = require('./powderplanner-firebase-adminsdk-qtkyg-fa57a8ac81.json');
-//
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: 'https://powderplanner.firebaseio.com'
-// });
 
 
 //Setting Up Application
 //Grab Our Dependencies
 //Start A New Instance of Express & call it app.
 //Grab The Express Layouts Package
-const express = require('express'),
-  app = express();
-  port = process.env.PORT || 8080,
-  expressLayouts = require('express-ejs-layouts');
-  mongoose = require('mongoose');
+const express     = require('express'),
+  app             = express();
+  port            = process.env.PORT || 8080,
+  expressLayouts  = require('express-ejs-layouts'),
+  mongoose        = require('mongoose');
 
   //Configure Application
   //Tell Express To look For Static Assets First
@@ -46,10 +38,3 @@ mongoose.connect(process.env.DB_URI);
   app.listen(port, () => {
     console.log(`App Listening on http://localhost:${port}`);
   });
-
-  // ui.start('#firebaseui-auth-container', {
-  //   signInOptions: [
-  //     firebase.auth.EmailAuthProvider.PROVIDER_ID
-  //   ],
-  //   // Other config options...
-  // });
