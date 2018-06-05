@@ -37,7 +37,7 @@ module.exports = {
 //     })
 //   }
 function showLocation(req, res) {
-  // get a single event
+  // Show A Location
   Location.findOne({ slug: req.params.slug }, (err, location) => {
     if (err) {
       res.status(404);
@@ -86,7 +86,7 @@ function showLocation(req, res) {
  //   {name: 'Alaska', slug: 'alaska', description: 'Mt. Denali'},
  //   {name: 'Ausrtria',slug: 'austria', description: 'Saalbach'}
  // ];
- // showSingle: (req ,res) => {
+ // showLocation: (req ,res) => {
  //   //Get A Sinle Location
  //   const location = { name: 'Alaska', slug: 'alaska', description: 'Mt.Denali'};
  //
