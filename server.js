@@ -1,6 +1,6 @@
 //Load Environment Variables
 //Got that security
-require('dotenv').config();
+require('dotenv').config()
 
 
 //Setting Up Application
