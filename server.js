@@ -7,15 +7,16 @@ require('dotenv').config()
 //Grab Our Dependencies
 //Start A New Instance of Express & call it app.
 //Grab The Express Layouts Package
-const express     = require('express'),
-  app             = express();
-  port            = process.env.PORT || 8080,
-  expressLayouts  = require('express-ejs-layouts'),
-  mongoose        = require('mongoose'),
-  bodyParser      = require('body-parser'),
-  session         = require('express-session'),
-  cookieParser    = require('cookie-parser'),
-  flash           = require('connect-flash');
+const express       = require('express'),
+  app               = express();
+  port              = process.env.PORT || 8080,
+  expressLayouts    = require('express-ejs-layouts'),
+  mongoose          = require('mongoose'),
+  bodyParser        = require('body-parser'),
+  session           = require('express-session'),
+  cookieParser      = require('cookie-parser'),
+  flash             = require('connect-flash'),
+  expreessValidator = require('express-validator');
 
 
 
@@ -48,6 +49,7 @@ mongoose.connect(process.env.DB_URI);
 //Use Body-Parser To Grab Info from The Form
 //Body-Parser Looks For urlencoded
 app.use(bodyParser.urlencoded({ extended: true  }));
+app.use(expreessValidator());
 
   //Set The Routes
   //requireing routes.js file app.use(require('./app/routes'))

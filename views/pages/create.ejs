@@ -1,27 +1,35 @@
-<div class="jumbotron-text-center" >
-    <h2>Create A New Location</h2>
+  <div class="jumbotron text-center">
+      <h1>Create an Location</h1>
   </div>
 
   <div class="row">
       <div class="col-sm-6 col-sm-offset-3">
 
-          <form class="" action="/locations/create" method="POST">
+          <% if (errors.length > 0) { %>
+              <div class="alert alert-danger">
+                  <% for (error of errors) { %>
+                      <%= error %><br>
+                  <% } %>
+              </div>
+          <% } %>
 
-            <div class="form-group">
-              <label>Name</label>
-                <input type="text" name="name" class="form-control">
-            </div>
+          <form action="/locations/create" method="POST">
 
-            <div class="form-group">
-              <label>Description</label>
-                  <textarea name="description"  class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-success btn-lg">Create</button>
-            </div>
+              <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" name="name" class="form-control">
+              </div>
+
+              <div class="form-group">
+                  <label>Description</label>
+                  <textarea name="description" rows="5" class="form-control"></textarea>
+              </div>
+
+              <div class="form-group">
+                  <button type="submit" class="btn btn-success btn-lg">Create</button>
+              </div>
 
           </form>
 
       </div>
-
   </div>

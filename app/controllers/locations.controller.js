@@ -11,6 +11,9 @@ module.exports = {
   seedLocations: seedLocations,
   showCreate: showCreate,
   processCreate: processCreate,
+  showEdit: showEdit,
+  processEdit: processEdit,
+
 }
 
   //Show All Locations
@@ -69,11 +72,27 @@ function showLocation(req, res) {
 
 
   function showCreate(req, res) {
-    res.render('pages/create');
+    res.render('pages/create', {
+      errors: req.flash('errors')
+    });
   }
 
 //Process The Create Form
   function processCreate(req, res) {
+    //Validate Information
+    //req.body beacuse it is coming form a fourm. - checkParam is for a URL Param
+  req.checkBody('name', 'Name is required.').notEmpty();
+  req.checkBody('Description', 'Desciption is required.').notEmpty();
+
+//Errors Redirects To Previous Page.
+  const errors = req.validationErrors();
+  if(errors) {
+    req.flash('errors', errors.map(err => err.msg));
+    return res.redirect('/locations/create');
+  }
+
+
+
     // create a new lcoation
     const location = new Location({
       name: req.body.name,
@@ -94,6 +113,75 @@ function showLocation(req, res) {
       res.redirect(`/locations/${location.slug}`);
     });
   }
+
+//Show The Edit form
+
+function showEdit(req, res) {
+  Location.findOne({ slug: req.params.slug}, (err, location) => {
+      res.render('pages/edit'), {
+        location:locaiton
+      };
+  });
+
+}
+
+//Process The Edit Form
+function processEdit(req, res) {
+  //Validate Information
+  //req.body beacuse it is coming form a fourm. - checkParam is for a URL Param
+req.checkBody('name', 'Name is required.').notEmpty();
+req.checkBody('Description', 'Desciption is required.').notEmpty();
+
+//Errors Redirects To Previous Page.
+const errors = req.validationErrors();
+if(errors) {
+  req.flash('errors', errors.map(err => err.msg));
+  return res.redirect(`/locaitons/${req.params.slug}/edit`);
+}
+
+//Finding A Location
+Location.findOne({ slug: req.params.slug }, (err, location) => {
+   // updating that location
+   location.name        = req.body.name;
+   location.description = req.body.description;
+
+   location.save((err) => {
+     if (err)
+       throw err;
+
+     // success flash message
+     // redirect back to the /events
+     req.flash('success', 'Successfully updated location.');
+     res.redirect('/locaitons');
+   });
+ });
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

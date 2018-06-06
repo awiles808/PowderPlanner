@@ -27,7 +27,11 @@ router.get('/locations/seed', locationsController.seedLocations);
 //Create Events
 router.get('/locations/create', locationsController.showCreate);
 router.post('/locations/create', locationsController.processCreate);
+
 //Update Events
+router.get('/locations/:slug/edit', locationsController.showEdit);
+router.post('/locations/:slug', locationsController.processEdit);
+
 //Delete Events
 
   //Show Single using slug
