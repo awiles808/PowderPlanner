@@ -15,7 +15,7 @@ module.exports = {
 
   //Show All Locations
   function showLocations(req, res) {
-    //All Events
+
     Location.find({},(err, locations) => {
       if (err) {
         res.status(404);
@@ -34,11 +34,14 @@ function showLocation(req, res) {
       res.send('Location not found!');
     }
 
-    res.render('pages/location', { location: location });
+    res.render('pages/location', {
+      location: location,
+      success: req.flash('success')
+    });
   });
 }
 
-//Seed Our DataBase
+//Seed Our Database
   function seedLocations(req, res) {
   //Create Locations
     const locations = [
@@ -69,9 +72,7 @@ function showLocation(req, res) {
     res.render('pages/create');
   }
 
-  /**
-   * Process the creation form
-   */
+//Process The Create Form
   function processCreate(req, res) {
     // create a new lcoation
     const location = new Location({
@@ -79,12 +80,17 @@ function showLocation(req, res) {
       description: req.body.description
     });
 
-    // save location
+    // Save Location
     location.save((err) => {
       if (err)
         throw err;
 
-      // redirect to the newly created location
+    //Create A Succesful Flash Message
+    req.flash('success', 'Succesfully Created A New Location!');
+
+
+
+      // Redirect To New Location Created
       res.redirect(`/locations/${location.slug}`);
     });
   }

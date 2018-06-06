@@ -5,6 +5,8 @@ body  {
   background-image: url('https://images.unsplash.com/photo-1459666644539-a9755287d6b0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=279b60ab483a2610d1e7260dc213898c&auto=format&fit=crop&w=1428&q=80');
   background-repeat: no-repeat;
   background-size: 100%;
+  background-color: black;
+
 }
 
 /* header */
@@ -43,4 +45,10 @@ h1 {
 .table {
     background: #444444;
     color: #999;
+}
+
+.alert{
+    background-color: #444444;
+    color: white;
+    width: 230px;
 }

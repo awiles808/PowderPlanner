@@ -1,8 +1,16 @@
-<div class="jumbotron-text-center" >
+<% if (success.length > 0) { %>
+    <div class="alert alert-success"><%= success %></div>
+    <% } %>
+
+
+
+
+<div class="jumbotron text-center">
     <h1><%= location.name %></h1>
     <p><%= location.description %></p>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"
+</div>
+    <%# <script src="https://code.jquery.com/jquery-3.3.1.js"
             integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous"></script> %>
 
 </div>

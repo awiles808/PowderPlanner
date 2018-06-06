@@ -12,10 +12,26 @@ const express     = require('express'),
   port            = process.env.PORT || 8080,
   expressLayouts  = require('express-ejs-layouts'),
   mongoose        = require('mongoose'),
-  bodyParser      = require('body-parser');
+  bodyParser      = require('body-parser'),
+  session         = require('express-session'),
+  cookieParser    = require('cookie-parser'),
+  flash           = require('connect-flash');
+
+
 
 
   //Configure Application
+  //Set Session And Cookie-Parser
+  app.use(cookieParser());
+  app.use(session({
+    secret: process.env.SECRET,
+    cookie: { maxAge: 6000 },
+    resave: false,
+    saveUnitialized: false
+  }));
+  app.use(flash());
+
+
   //Tell Express To look For Static Assets First
   //Tell Express CSS Files Will Be In The Public Folder
   app.use(express.static(__dirname + '/public'));
