@@ -11,7 +11,9 @@ const express     = require('express'),
   app             = express();
   port            = process.env.PORT || 8080,
   expressLayouts  = require('express-ejs-layouts'),
-  mongoose        = require('mongoose');
+  mongoose        = require('mongoose'),
+  bodyParser      = require('body-parser');
+
 
   //Configure Application
   //Tell Express To look For Static Assets First
@@ -26,6 +28,10 @@ const express     = require('express'),
 //Connect to DataBase
 //.env file contains DB_URI hidden through process.env.
 mongoose.connect(process.env.DB_URI);
+
+//Use Body-Parser To Grab Info from The Form
+//Body-Parser Looks For urlencoded
+app.use(bodyParser.urlencoded({ extended: true  }));
 
   //Set The Routes
   //requireing routes.js file app.use(require('./app/routes'))

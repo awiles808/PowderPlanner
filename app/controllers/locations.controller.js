@@ -8,7 +8,9 @@ const Location = require('../models/location');
 module.exports = {
   showLocations: showLocations,
   showLocation: showLocation,
-  seedLocations: seedLocations
+  seedLocations: seedLocations,
+  showCreate: showCreate,
+  processCreate: processCreate,
 }
 
   //Show All Locations
@@ -24,18 +26,6 @@ module.exports = {
     });
 }
 
-//Show A Single Location
-// function showLocation(req, res) {
-//     //Get A Sinle Location
-//     Location.findOne({ slug: req.parms.slug }, (err, location) => {
-//       if (err) {
-//         res.status(404);
-//         res.send('Location not found');
-//       }
-//
-//       res.render('pages/location', { location: location });
-//     })
-//   }
 function showLocation(req, res) {
   // Show A Location
   Location.findOne({ slug: req.params.slug }, (err, location) => {
@@ -75,6 +65,84 @@ function showLocation(req, res) {
   }
 
 
+  function showCreate(req, res) {
+    res.render('pages/create');
+  }
+
+  /**
+   * Process the creation form
+   */
+  function processCreate(req, res) {
+    // create a new lcoation
+    const location = new Location({
+      name: req.body.name,
+      description: req.body.description
+    });
+
+    // save location
+    location.save((err) => {
+      if (err)
+        throw err;
+
+      // redirect to the newly created location
+      res.redirect(`/locations/${location.slug}`);
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Create form
+//
+// function showCreate(req, res) {
+//   res.render('locations/create');
+//
+// }
+//
+// //Process Create form
+//
+// function processCreate(req, res) {
+//   //Create A new Event
+//   const location = new Location({
+//     name: req.body.name,
+//     description: req.body.description
+//   });
+//
+//   location.save((err) => {
+//     if(err)
+//       throw err;
+//
+// //Redirecting To New Event
+//     res.redirect(`/locations/${locations.slug}`);
+//   });
+//
+// }
+//
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -92,3 +160,15 @@ function showLocation(req, res) {
  //
  //   res.render('pages/single', { location: location});
  // },
+ //Show A Single Location
+ // function showLocation(req, res) {
+ //     //Get A Sinle Location
+ //     Location.findOne({ slug: req.parms.slug }, (err, location) => {
+ //       if (err) {
+ //         res.status(404);
+ //         res.send('Location not found');
+ //       }
+ //
+ //       res.render('pages/location', { location: location });
+ //     })
+ //   }

@@ -25,6 +25,8 @@ router.get('/locations', locationsController.showLocations);
 router.get('/locations/seed', locationsController.seedLocations);
 
 //Create Events
+router.get('/locations/create', locationsController.showCreate);
+router.post('/locations/create', locationsController.processCreate);
 //Update Events
 //Delete Events
 
