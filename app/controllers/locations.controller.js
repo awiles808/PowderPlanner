@@ -57,9 +57,7 @@ function showLocation(req, res) {
       { name: 'Alaska', description: 'Mt. Denali'},
       { name: 'Ausrtria', description: 'Saalbach'},
       { name: 'New Mexico', description: 'Angel Fire'}
-
   ];
-
 
   // Create Locations Model To Save
   // Create For Loop
@@ -87,7 +85,7 @@ function showLocation(req, res) {
     //Validate Information
     //req.body beacuse it is coming form a fourm. - checkParam is for a URL Param
     req.checkBody('name', 'Name is required.').notEmpty();
-    req.checkBody('Description', 'Desciption is required.').notEmpty();
+    req.checkBody('description', 'Description Is Required.').notEmpty();
 
   //Errors Redirects To Previous Page.
   const errors = req.validationErrors();
@@ -129,7 +127,7 @@ function showEdit(req, res) {
 
 //Process The Edit Form
 function processEdit(req, res) {
-  // validate information
+  // Validate Information
   req.checkBody('name', 'Name is required.').notEmpty();
   req.checkBody('description', 'Description is required.').notEmpty();
 
@@ -142,7 +140,7 @@ function processEdit(req, res) {
 
 //Finding A Location
 Location.findOne({ slug: req.params.slug }, (err, location) => {
-   // Updating that location
+   // Updating That Location
    location.name        = req.body.name;
    location.description = req.body.description;
 
@@ -150,8 +148,8 @@ Location.findOne({ slug: req.params.slug }, (err, location) => {
      if (err)
        throw err;
 
-     // Success flash message
-     // Redirect back to the /events
+     // Success Message
+     // Redirect Back To The /Events
      req.flash('success', 'Successfully updated location.');
      res.redirect('/locations');
    });
@@ -163,7 +161,7 @@ function deleteLocation(req, res) {
   Location.remove({ slug: req.params.slug }, (err) => {
     //Set Flash Data
     req.flash('success', 'Location Deleted!');
-    //Redirect To locations Page
+    //Redirect To Locations Page
     res.redirect('/locations');
 
   });

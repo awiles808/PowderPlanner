@@ -28,7 +28,7 @@ const express       = require('express'),
     secret: process.env.SECRET,
     cookie: { maxAge: 6000 },
     resave: false,
-    saveUnitialized: false
+    saveUninitialized: false
   }));
   app.use(flash());
 
