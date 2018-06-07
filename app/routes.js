@@ -33,6 +33,7 @@ router.get('/locations/:slug/edit', locationsController.showEdit);
 router.post('/locations/:slug', locationsController.processEdit);
 
 //Delete Events
+router.get('/locations/:slug/delete', locationsController.deleteLocation);
 
-  //Show Single using slug
+//Show Single using slug
 router.get('/locations/:slug', locationsController.showLocation);

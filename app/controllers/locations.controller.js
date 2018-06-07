@@ -13,6 +13,7 @@ module.exports = {
   processCreate: processCreate,
   showEdit: showEdit,
   processEdit: processEdit,
+  deleteLocation: deleteLocation
 
 }
 
@@ -25,7 +26,11 @@ module.exports = {
         res.send('Locations not found');
       }
           //Return A View With Data
-          res.render('pages/locations', { locations: locations });
+          res.render('pages/locations', {
+            locations: locations,
+            success: req.flash('success')
+
+           });
     });
 }
 
@@ -44,9 +49,9 @@ function showLocation(req, res) {
   });
 }
 
-//Seed Our Database
+  //Seed Our Database
   function seedLocations(req, res) {
-  //Create Locations
+    //Create Locations
     const locations = [
       { name: 'Colorado', description: 'Winter Park'},
       { name: 'Alaska', description: 'Mt. Denali'},
@@ -77,21 +82,19 @@ function showLocation(req, res) {
     });
   }
 
-//Process The Create Form
+  //Process The Create Form
   function processCreate(req, res) {
     //Validate Information
     //req.body beacuse it is coming form a fourm. - checkParam is for a URL Param
-  req.checkBody('name', 'Name is required.').notEmpty();
-  req.checkBody('Description', 'Desciption is required.').notEmpty();
+    req.checkBody('name', 'Name is required.').notEmpty();
+    req.checkBody('Description', 'Desciption is required.').notEmpty();
 
-//Errors Redirects To Previous Page.
+  //Errors Redirects To Previous Page.
   const errors = req.validationErrors();
   if(errors) {
     req.flash('errors', errors.map(err => err.msg));
     return res.redirect('/locations/create');
   }
-
-
 
     // create a new lcoation
     const location = new Location({
@@ -115,33 +118,31 @@ function showLocation(req, res) {
   }
 
 //Show The Edit form
-
 function showEdit(req, res) {
-  Location.findOne({ slug: req.params.slug}, (err, location) => {
-      res.render('pages/edit'), {
-        location:locaiton
-      };
+  Location.findOne({ slug: req.params.slug }, (err, location) => {
+    res.render('pages/edit', {
+      location: location,
+      errors: req.flash('errors')
+    });
   });
-
 }
 
 //Process The Edit Form
 function processEdit(req, res) {
-  //Validate Information
-  //req.body beacuse it is coming form a fourm. - checkParam is for a URL Param
-req.checkBody('name', 'Name is required.').notEmpty();
-req.checkBody('Description', 'Desciption is required.').notEmpty();
+  // validate information
+  req.checkBody('name', 'Name is required.').notEmpty();
+  req.checkBody('description', 'Description is required.').notEmpty();
 
-//Errors Redirects To Previous Page.
-const errors = req.validationErrors();
-if(errors) {
-  req.flash('errors', errors.map(err => err.msg));
-  return res.redirect(`/locaitons/${req.params.slug}/edit`);
+  // if there are errors, redirect and save errors to flash
+  const errors = req.validationErrors();
+    if (errors) {
+      req.flash('errors', errors.map(err => err.msg));
+      return res.redirect(`/locations/${req.params.slug}/edit`);
 }
 
 //Finding A Location
 Location.findOne({ slug: req.params.slug }, (err, location) => {
-   // updating that location
+   // Updating that location
    location.name        = req.body.name;
    location.description = req.body.description;
 
@@ -149,120 +150,21 @@ Location.findOne({ slug: req.params.slug }, (err, location) => {
      if (err)
        throw err;
 
-     // success flash message
-     // redirect back to the /events
+     // Success flash message
+     // Redirect back to the /events
      req.flash('success', 'Successfully updated location.');
-     res.redirect('/locaitons');
+     res.redirect('/locations');
    });
  });
 
 }
+//Delete A Locaiton
+function deleteLocation(req, res) {
+  Location.remove({ slug: req.params.slug }, (err) => {
+    //Set Flash Data
+    req.flash('success', 'Location Deleted!');
+    //Redirect To locations Page
+    res.redirect('/locations');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Create form
-//
-// function showCreate(req, res) {
-//   res.render('locations/create');
-//
-// }
-//
-// //Process Create form
-//
-// function processCreate(req, res) {
-//   //Create A new Event
-//   const location = new Location({
-//     name: req.body.name,
-//     description: req.body.description
-//   });
-//
-//   location.save((err) => {
-//     if(err)
-//       throw err;
-//
-// //Redirecting To New Event
-//     res.redirect(`/locations/${locations.slug}`);
-//   });
-//
-// }
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- // const locations = [
- //   {name: 'Colorado', slug: 'colorado', description: 'Winter Park'},
- //   {name: 'Alaska', slug: 'alaska', description: 'Mt. Denali'},
- //   {name: 'Ausrtria',slug: 'austria', description: 'Saalbach'}
- // ];
- // showLocation: (req ,res) => {
- //   //Get A Sinle Location
- //   const location = { name: 'Alaska', slug: 'alaska', description: 'Mt.Denali'};
- //
- //   res.render('pages/single', { location: location});
- // },
- //Show A Single Location
- // function showLocation(req, res) {
- //     //Get A Sinle Location
- //     Location.findOne({ slug: req.parms.slug }, (err, location) => {
- //       if (err) {
- //         res.status(404);
- //         res.send('Location not found');
- //       }
- //
- //       res.render('pages/location', { location: location });
- //     })
- //   }
+  });
+}

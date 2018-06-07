@@ -2,10 +2,12 @@
 <%# //Create BootStrap jumbotron %>
 <div class="jumbotron text-center">
     <h1>Pick Your Location</h1>
-    <%# <script src="https://code.jquery.com/jquery-3.3.1.js"
-            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-            crossorigin="anonymous"></script> %>
+
 </div>
+
+<% if (success.length > 0) { %>
+    <div class="alert alert-success"><%= success %></div>
+    <% } %>
 
 <%# //Create BootStarp Table %>
 <table class="table table-bordered table-hover table-striped">
@@ -26,6 +28,8 @@
                 <td>
                     <a href="/locations/<%= location.slug %>" class="btn btn-sm btn-primary">View</a>
                     <a href="/locations/<%= location.slug %>/edit" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="/locations/<%= location.slug %>/delete" class="btn btn-sm btn-danger">Delete</a>
+
                 </td>
             </tr>
         <% } %>
